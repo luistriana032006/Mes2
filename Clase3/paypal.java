@@ -9,8 +9,10 @@ public class paypal implements metodoPago {
 
     @Override
     public void procesarPago(double monto) {
-        
-        
+        if (validarMonto(monto)) {
+        System.out.println(" el pago fue exitoso ");
+        }
+        else {System.out.println(" el pago no fue exitoso ");}
     }
 
     @Override
