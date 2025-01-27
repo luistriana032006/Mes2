@@ -7,8 +7,4 @@ public class push implements notification {
         
     }
 
-   
-
-    
-
 }

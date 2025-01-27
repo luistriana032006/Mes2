@@ -7,7 +7,4 @@ public class correo implements notification {
         
     }
 
-    
-    
-
 }
