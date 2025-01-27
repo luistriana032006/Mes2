@@ -255,30 +255,183 @@ public static void main(String[] args) {
                 break;
             }
 ```
+# Clase 4.
+en la clase 4 hacemos un programa de gestion de notificación las cuales son los siguientes tipos 
+- sms
+- push
+- correo
+las cuales se van hacer con el patron de diseño factory en el cual implementamos
+## interface del metodo 
+en la interface creamos un metodo el cual devuelve un tipo de mensaje 
+```
+public interface notification {
+ void message(String mensaje);
+}
+
+```
+ahora tenemos unas clases que sobrescriben ese metodo una clase para cada tipo de mensaje
+
+### clase sms.
+```
+public class sms implements notification {
+
+    @Override
+    public void message(String mensaje) {
+        System.out.println(" enviando un mensaje SMS "+mensaje);
+    }
+
+   
+
+}
+
+```
+### clase push.
+```
+public class push implements notification {
+
+    @Override
+    public void message(String mensaje) {
+     System.out.println(" enviando una notificacion push "+mensaje);
+        
+    }
+
+}
+```
+### clase correo.
+```
+public class correo implements notification {
+
+    @Override
+    public void message(String mensaje) {
+     System.out.println(" enviando un correo "+ mensaje);
+        
+    }
+
+}
+
+```
+## Creación de la fabrica de mensajes.
+la clase factoyMessage se encarga de crear las instancias del tipo de mensaje suministrado, contiene un switch el cual dependiendo la opcion del usuario determina que tipo de mensaje enviar, y crea una nueva intancia de la clase que elige el usuario.
+
+```
+public class factoryMessage {
+    public  notification crearMessage(String tipo) {
+
+        switch (tipo) {
+            case "sms":
+                return new sms();
+
+            case "push":
+            return new push();
+
+            case "correo": 
+            return new correo();
+
+            default:
+                throw new IllegalArgumentException(" tipo de mensaje no disponible");
+                
+        }
+    }
+
+   
+}
+
+```
+## clase app (informacion mostrada en la terminal)
+ se crea una instancia de la clase factoryMessage la cual contiene el metodo crearMessage que se utiliza para crear diferentes tipos de notificaciones.
+ ```
+ factoryMessage factory = new factoryMessage();
+```
+ahora creamos las notificaciones 
+se llama al metodo crearMessage con el argumento correo lo que devuelve una instancia de la clase correo, así con todos los tipos de notificacion.
+```
+ notification correo = factory.crearMessage("correo");
+        correo.message("este es un mensaje por correo");
+        notification sms = factory.crearMessage("sms");
+        sms.message(" este es un SMS");
+        notification push = factory.crearMessage("push");
+        push.message( " esto es una notificacion push");
+```
+# Clase 5.
+ en la clase 5 utlizamos el patron de diseño de composición 
+en donde tenemos que hacer la logica de un plato de comida en un restaurante  declaramos las clases con un metodo para mostrar la informacion.
+
+
+## clase cocina.
+```
+public class cocina {
+    public void prepararplato(){
+    
+   System.out.println(" se esta preparando un plato ");
+    }
+}
+
+```
+## clase mesero.
+```
+public class mesero {
+ public void sirviendoPlato() {
+
+ System.out.println(" se esta sirviendo un plato ");
+}
+}
+
+```
+
+## clase caja.
+la clase caja implementa un metodo String el cual devuelve un mensaje.
+```
+public class caja {
+public void cobrandoPlato(){
+    System.out.println(" se esta cobrando un plato ");
+}
+}
+
+```
+
+## clase contenedor. 
+la clase contenedor es la cual tiene el metodo constructor  de los tipos de objetos de las clases caja, cocina, mesero.
+y el metodo para mostrar la informacion del plato.
+```
+public class restaurante {
+    private cocina cocina;
+    private caja caja;
+    private mesero mesero;
+
+    public restaurante(cocina cocina, mesero mesero, caja caja) {
+
+        this.caja = caja;
+        this.cocina = cocina;
+        this.mesero = mesero;
+    }
+
+    public void operarRestaurante() {
+     cocina.prepararplato();
+    mesero.sirviendoPlato();
+    caja.cobrandoPlato();
+    
+    }
 
 
 
+}
 
+```
+## clase app 
+la clase app contiene las instancias de las clases anteriormente mensionadas.
+```
+public static void main(String[] args) {
+    cocina cocina = new cocina();
+    mesero mesero = new mesero();
+    caja caja = new caja();
+    
+    restaurante restaurante = new restaurante(cocina, mesero, caja);
 
+    restaurante.operarRestaurante();
+}
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+```
 
 
 
